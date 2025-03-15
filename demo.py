@@ -14,8 +14,7 @@
 
 from __future__ import print_function
 
-from dwave.system.composites import EmbeddingComposite
-from dwave.system.samplers import DWaveSampler
+from neal import SimulatedAnnealingSampler
 
 from job_shop_scheduler import get_jss_bqm, is_auxiliary_variable
 
@@ -28,7 +27,7 @@ bqm = get_jss_bqm(jobs, max_time)
 
 # Submit BQM
 # Note: may need to tweak the chain strength and the number of reads
-sampler = EmbeddingComposite(DWaveSampler())
+sampler = SimulatedAnnealingSampler()
 sampleset = sampler.sample(bqm,
                            chain_strength=2,
                            num_reads=1000,
