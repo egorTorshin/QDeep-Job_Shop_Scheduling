@@ -19,6 +19,7 @@ from bisect import bisect_right
 
 import dwavebinarycsp
 
+from neal import SimulatedAnnealingSampler
 
 def get_jss_bqm(job_dict, max_time=None, stitch_kwargs=None):
     """Returns a BQM to the Job Shop Scheduling problem.
@@ -48,7 +49,7 @@ def get_jss_bqm(job_dict, max_time=None, stitch_kwargs=None):
         >>> bqm = get_jss_bqm(jobs, max_time, stitch_kwargs)
 
         >>> # May need to tweak the chain strength and the number of reads
-        >>> sampler = EmbeddingComposite(DWaveSampler())
+        >>> sampler = SimulatedAnnealingSampler()
         >>> sampleset = sampler.sample(bqm, chain_strength=2, num_reads=1000)
 
         >>> # Results
@@ -364,4 +365,5 @@ def is_auxiliary_variable(v):
     Auxiliary variables may be added as part of converting the
     constraint satisfaction problem to a BQM.
     """
-    return match("aux\d+$", v)
+    return match(r"aux\d+$", v)
+
